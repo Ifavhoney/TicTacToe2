@@ -7,13 +7,14 @@ namespace TicTacToe
     {
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int player = 1;
+        static int aIRequest = 0;
         static bool gameOver = false;
         static int checkBoards;
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Player 1 is by the Default X");
+            Console.WriteLine("AI goes first by Default X");
             Console.WriteLine("Player 2 is by the Default O\n");
             Console.WriteLine("This is Your Current Board");
             updateBoard();
@@ -25,31 +26,87 @@ namespace TicTacToe
                 {
                     if (player % 2 != 0)
                     {
-                        Console.Write("Player 1, please enter a slot: ");
-                        board[0] = 'S';
-                        int input = Int32.Parse(Console.ReadLine());
-                        if (board[input] != 'X' && board[input] != 'O' && input > 0)
+                        Console.WriteLine("Moved Played\n");
+
+                        if (player % 2 != 0 && checkBoards < 1)
                         {
-                            board[input] = 'X';
+                            board[5] = 'X';
                             checkBoards++;
                             player++;
                         }
+
+                        else if (board[8] != 'X' && board[8] != 'O' && board[9] == 'O' )
+                        {
+                            board[8] = 'X';
+                            checkBoards++;
+                            player++;
+                        }
+                        //WIN CONDITION 1 - DUMB
+                        else if (board[2] != 'O' && board[2] != 'X' && board[6] == 'O')
+                        {
+                            board[2] = 'X';
+                            checkBoards++;
+                            player++;
+                        }
+
+                        else if (board[4] == 'O' && board[8] == 'O' && board[5] == 'O' && board[4] != 'X'
+                            && board[8] != 'X')
+                        {
+                            //TIE CONDITION
+                            board[6] = 'X';
+                            checkBoards++;
+                            player++;
+                        }
+
                         else
                         {
-                            Console.WriteLine("Please enter a different slot\n");
-                            continue;
+                            Random rnd = new Random();
+                            int input = rnd.Next(1, 10);
+                            if (board[1] == 'O' && board[2] == 'O' && board[3] != 'X')
+                            {
+                                board[3] = 'X';
+                            }
+
+                            if (board[1] == 'O' && board[4] == 'O' && board[7] != 'X')
+                            {
+                                board[7] = 'X';
+                            }
+
+
+
+
+
+                            else if (board[input] != 'X' && board[input] != 'O' && input > 0)
+                            {
+                                board[input] = 'X';
+                                checkBoards++;
+                                player++;
+                            }
+                            else
+                            {
+                                aIRequest++;
+                                if (aIRequest > 20)
+                                {
+                                    gameChecker();
+                                }
+                                Console.WriteLine("AI is thinking!\n");
+                                continue;
+
+                            }
+
                         }
 
                     }
                     else
                     {
-                        Console.Write("Player 2, please enter a slot: ");
+                        Console.Write("\nPlayer 2, please enter a slot: ");
                         int input = Int32.Parse(Console.ReadLine());
                         if (board[input] != 'X' && board[input] != 'O' && input > 0)
                         {
                             board[input] = 'O';
                             checkBoards++;
                             player++;
+                            continue;
                         }
                         else
                         {
@@ -57,6 +114,7 @@ namespace TicTacToe
                             continue;
                         }
                     }
+                    
                     updateBoard();
 
 
@@ -73,10 +131,7 @@ namespace TicTacToe
                     continue;
 
                 }
-
-
-
-
+                                             
 
 
 
