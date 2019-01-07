@@ -16,9 +16,11 @@ namespace TicTacToe
         {
             Console.WriteLine("AI goes first by Default X");
             Console.WriteLine("Player 2 is by the Default O\n");
-            Console.WriteLine("This is Your Current Board");
+            Console.WriteLine("This is Your Current Board ");
+
             updateBoard();
-            Console.WriteLine("");
+
+            Console.WriteLine("\nThis is my playground, you will play by my RULES - AI\n");
 
             do
             {
@@ -41,13 +43,21 @@ namespace TicTacToe
                             checkBoards++;
                             player++;
                         }
-                        //WIN CONDITION 1 - DUMB
+                        //WIN CONDITION 1 - EASY
                         else if (board[2] != 'O' && board[2] != 'X' && board[6] == 'O')
                         {
                             board[2] = 'X';
                             checkBoards++;
                             player++;
                         }
+
+                        else if (board[4] != 'O' && board[6] != 'O' && board[4] != 'X' && board[6] != 'X')
+                        {
+                            board[4] = 'X';
+                            checkBoards++;
+                            player++;
+                        }
+
 
                         else if (board[4] == 'O' && board[8] == 'O' && board[5] == 'O' && board[4] != 'X'
                             && board[8] != 'X')
@@ -71,9 +81,7 @@ namespace TicTacToe
                             {
                                 board[7] = 'X';
                             }
-
-
-
+                                                       
 
 
                             else if (board[input] != 'X' && board[input] != 'O' && input > 0)
@@ -85,7 +93,7 @@ namespace TicTacToe
                             else
                             {
                                 aIRequest++;
-                                if (aIRequest > 20)
+                                if (aIRequest > 60)
                                 {
                                     gameChecker();
                                 }
